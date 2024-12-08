@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ThreadControls from './ThreadControls';
 import ThreadList from './ThreadList';
 import QueueChart from './QueueChart';
@@ -8,24 +8,42 @@ import { useQueueStatus } from '../hooks/useQueueStatus';
 import './Dashboard.css';
 
 function Dashboard() {
-  let { 
-    threads, 
+  const { 
+    threads,
     loading: threadsLoading, 
     error: threadsError,
     refetchThreads 
   } = useThreads();
 
-  //create dummy threads
-   threads = [
-    { id: 1, type: 'Sender', status: 'RUNNING', priority: 5 },
-    { id: 2, type: 'Receiver', status: 'RUNNING', priority: 5 }
-  ];
+//   console.log('threads', threads);
+
+
+const [ activeSenderThreads, setActiveSenderThreads ] = useState([]);
+const [ activeReceiverThreads, setActiveReceiverThreads ] = useState([]);
 
   const { 
     queueStatus, 
     loading: queueLoading, 
     error: queueError 
   } = useQueueStatus();
+
+//   //find the active threads
+//   setActiveSenderThreads(threads.filter(thread => thread.type === 'Sender' && thread.active === true));
+//   setActiveReceiverThreads(threads.filter(thread => thread.type === 'Receiver' && thread.active === true));
+
+
+//   console.log("");
+//   console.log("");
+//   console.log("");
+//   console.log("");
+  
+//   console.log('activeSenderThreads', activeSenderThreads);
+//   console.log('activeReceiverThreads', activeReceiverThreads);
+//   console.log("");
+  
+//   console.log("");
+//   console.log("");
+  
 
   const loading = threadsLoading || queueLoading;
   const error = threadsError || queueError;
@@ -43,10 +61,10 @@ function Dashboard() {
           onPriorityChange={refetchThreads}
           loading={loading}
         />
-        <QueueChart queueStatus={queueStatus} />
+        <QueueChart queueStatus={queueStatus} threads={threads}/>
       </div>
 
-      <QueueVisualizer queueStatus={queueStatus} />
+      <QueueVisualizer queueStatus={queueStatus} threads={threads}/>
     </div>
   );
 }

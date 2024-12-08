@@ -2,52 +2,71 @@ import axios from 'axios';
 import BACKEND_URL from '../config';
 
 
-export const api = {
-  startThreads: async (senderCount, receiverCount) => {
+export const api = {  
+
+  createThreads: async (senderCount, receiverCount) => {
+    console.log('api createThreads: ', senderCount, receiverCount);
     try {
-      const response = await axios.post(`${BACKEND_URL}/threads/start`, {
-        senderCount,
-        receiverCount
-      });
+      const response = await axios.post(
+        `${BACKEND_URL}/threads/create`, 
+        {},
+        {
+          params: {
+            senderCount,
+            receiverCount
+          }
+        }
+      );
+      
+      console.log('api createThreads response', response.data);
       return response.data;
     } catch (error) {
-      throw new Error('Thread başlatma işlemi başarısız oldu');
+      console.error('api createThreads error', error);
+      throw new Error('Thread start process failed');
     }
   },
 
-  updateThreadStatus: async (threadId, status) => {
+  updateThreadActive: async (threadId, active) => {
+    console.log('api updateThreadActive: ', threadId, active);
     try {
-      const response = await axios.put(`${BACKEND_URL}/threads/${threadId}/status`, { status });
+      const response = await axios.put(`${BACKEND_URL}/threads/${threadId}/active?active=${active}`);
+      console.log('api updateThreadActive response', response.data);
       return response.data;
     } catch (error) {
-      throw new Error('Thread durumu güncellenemedi');
+      throw new Error('Thread status update failed');
     }
   },
 
   updateThreadPriority: async (threadId, priority) => {
     try {
-      const response = await axios.put(`${BACKEND_URL}/threads/${threadId}/priority`, { priority });
+      const response = await axios.put(`${BACKEND_URL}/threads/${threadId}/priority?priority=${priority}`);
+      console.log('api updateThreadPriority response', response.data);
       return response.data;
     } catch (error) {
-      throw new Error('Thread önceliği güncellenemedi');
+      throw new Error('Thread priority update failed');
     }
   },
 
   getAllThreads: async () => {
+    console.log('api getAllThreads:********** ', `${BACKEND_URL}/threads`);
     try {
       const response = await axios.get(`${BACKEND_URL}/threads`);
       return response.data;
     } catch (error) {
-      throw new Error('Thread listesi alınamadı');
+      throw new Error('Thread list fetch failed');
     }
   },
+
 
   getQueueStatus: async () => {
     try {
       const response = await axios.get(`${BACKEND_URL}/queue/status`);
+      console.log('api getQueueStatus response', response.data);
       return response.data;
     } catch (error) {
-      throw new Error('Kuyruk durumu alınamadı');
+      throw new Error('Queue status fetch failed');
     }
-  }
+  },
+
+
 }; 
