@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -23,16 +23,25 @@ ChartJS.register(
 );
 
 function QueueChart({ queueStatus }) {
+  const [chartData, setChartData] = useState([]);
+  
+  // Son 10 veriyi tutacak şekilde güncelle
+  useEffect(() => {
+    setChartData(prevData => {
+      const newData = [...prevData, queueStatus?.occupancyRate || 0];
+      return newData.slice(-10); // Son 10 veriyi tut
+    });
+  }, [queueStatus]);
+
   const data = {
-    labels: queueStatus?.items.map((_, index) => `${index + 1}`),
+    labels: chartData.map((_, index) => `${index + 1}s`), // Son 10 saniye
     datasets: [
       {
-        label: 'Queue Doluluk Oranı',
-        data: queueStatus?.items.map((_, index) => 
-          (index / queueStatus.capacity) * 100
-        ),
+        label: 'Doluluk Oranı (%)',
+        data: chartData,
         borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
+        tension: 0.4,
+        fill: false
       }
     ]
   };
@@ -45,7 +54,7 @@ function QueueChart({ queueStatus }) {
       },
       title: {
         display: true,
-        text: 'Queue Durumu'
+        text: 'Queue Doluluk Oranı (Son 10 saniye)'
       }
     },
     scales: {
@@ -56,6 +65,12 @@ function QueueChart({ queueStatus }) {
           display: true,
           text: 'Doluluk Oranı (%)'
         }
+      },
+      x: {
+        title: {
+          display: true,
+          text: 'Zaman (saniye)'
+        }
       }
     }
   };
@@ -63,6 +78,16 @@ function QueueChart({ queueStatus }) {
   return (
     <div className="queue-chart-container">
       <Line data={data} options={options} />
+      <div className="queue-stats">
+        <div className="stat-item">
+          <span className="stat-label">Mevcut Boyut:</span>
+          <span className="stat-value">{queueStatus?.currentSize || 0}</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-label">Maksimum Boyut:</span>
+          <span className="stat-value">{queueStatus?.maxSize || 0}</span>
+        </div>
+      </div>
     </div>
   );
 }
