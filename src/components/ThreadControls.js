@@ -7,7 +7,7 @@ import './ThreadControls.css';
 function ThreadControls() {
   const [senderCount, setSenderCount] = useState(5);
   const [receiverCount, setReceiverCount] = useState(5);
-  const { createThreads, loading, error } = useThreads();
+  const { createThreads, loading, error, deleteThreads } = useThreads();
 
   const handleCreateThreads = async () => {
     await createThreads(senderCount, receiverCount);
@@ -21,6 +21,10 @@ function ThreadControls() {
   const handleReceiverChange = (e) => {
     const value = parseInt(e.target.value) || 0;
     setReceiverCount(value);
+  };
+
+  const handleDeleteThreads = async () => {
+    await deleteThreads();
   };
 
   return (
@@ -50,12 +54,14 @@ function ThreadControls() {
       <button 
         className="start-button"
         onClick={handleCreateThreads} 
-        disabled={loading || (senderCount < 1 && receiverCount < 1)}
+        disabled={senderCount < 1 && receiverCount < 1}
       >
         <FontAwesomeIcon icon={faPlay} />
-        {loading ? 'Creating...' : 'Create Threads'}
+       Create Threads
       </button>
-      {error && <div className="error-message">{error}</div>}
+      
+      <button className="stop-button" onClick={handleDeleteThreads}>Delete All</button>
+      
     </div>
   );
 }

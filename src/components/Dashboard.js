@@ -54,17 +54,21 @@ const [ activeReceiverThreads, setActiveReceiverThreads ] = useState([]);
       
       <ThreadControls onThreadsStart={refetchThreads} />
       
-      <div className="dashboard-grid">
-        <ThreadList 
+
+      { threads.length > 0 && (
+        <div className="dashboard-grid">
+          <ThreadList 
           threads={threads} 
           onStatusChange={refetchThreads}
           onPriorityChange={refetchThreads}
           loading={loading}
         />
-        <QueueChart queueStatus={queueStatus} threads={threads}/>
-      </div>
+       
+        </div>
+      )}
+      <QueueChart queueStatus={queueStatus} threads={threads}/>
 
-      <QueueVisualizer queueStatus={queueStatus} threads={threads}/>
+      {/* <QueueVisualizer queueStatus={queueStatus} threads={threads}/> */}
     </div>
   );
 }

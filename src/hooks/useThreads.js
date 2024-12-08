@@ -11,6 +11,7 @@ export const useThreads = () => {
     try {
       const data = await api.getAllThreads();
       setThreads(data);
+      console.log('fetchThreads data', data);
       setError(null);
     } catch (err) {
       setError('Error fetching thread data');
@@ -33,6 +34,18 @@ export const useThreads = () => {
     }
   };
 
+  const deleteThreads = async () => {
+    setLoading(true);
+    try {
+      await api.deleteThreads();
+      await fetchThreads();
+    } catch (err) {
+      setError('Thread delete process failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchThreads();
     const interval = setInterval(fetchThreads, 1000);
@@ -44,6 +57,7 @@ export const useThreads = () => {
     loading, 
     error, 
     refetchThreads: fetchThreads,
-    createThreads 
+    createThreads,
+    deleteThreads
   };
 }; 

@@ -57,6 +57,14 @@ export const api = {
     }
   },
 
+  deleteThreads: async () => {
+    try {
+      const response = await axios.delete(`${BACKEND_URL}/threads`);
+      return response.data;
+    } catch (error) {
+      throw new Error('Thread delete failed');
+    }
+  },
 
   getQueueStatus: async () => {
     try {
