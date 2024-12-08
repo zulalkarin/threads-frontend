@@ -1,0 +1,86 @@
+.thread-table {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.thread-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.thread-table th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid var(--background-color);
+}
+
+.thread-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--background-color);
+}
+
+.action-button {
+  color: white;
+  padding: 6px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.action-button.running {
+  background-color: var(--danger-color);
+}
+
+.action-button.stopped {
+  background-color: var(--success-color);
+}
+
+.action-button:hover {
+  opacity: 0.9;
+}
+
+.priority-button {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 4px 8px;
+  margin: 0 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.priority-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.priority-button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.priority-display {
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+/* Responsive tasarım için */
+@media (max-width: 768px) {
+  .thread-table {
+    padding: 10px;
+  }
+
+  .thread-table th,
+  .thread-table td {
+    padding: 8px;
+  }
+
+  .action-button {
+    padding: 4px 8px;
+  }
+} 
