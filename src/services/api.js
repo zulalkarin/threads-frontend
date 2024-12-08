@@ -1,11 +1,11 @@
 import axios from 'axios';
+import BACKEND_URL from '../config';
 
-const API_BASE_URL = 'http://localhost:8080/api';
 
 export const api = {
   startThreads: async (senderCount, receiverCount) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/threads/start`, {
+      const response = await axios.post(`${BACKEND_URL}/threads/start`, {
         senderCount,
         receiverCount
       });
@@ -17,7 +17,7 @@ export const api = {
 
   updateThreadStatus: async (threadId, status) => {
     try {
-      const response = await axios.put(`${API_BASE_URL}/threads/${threadId}/status`, { status });
+      const response = await axios.put(`${BACKEND_URL}/threads/${threadId}/status`, { status });
       return response.data;
     } catch (error) {
       throw new Error('Thread durumu güncellenemedi');
@@ -26,7 +26,7 @@ export const api = {
 
   updateThreadPriority: async (threadId, priority) => {
     try {
-      const response = await axios.put(`${API_BASE_URL}/threads/${threadId}/priority`, { priority });
+      const response = await axios.put(`${BACKEND_URL}/threads/${threadId}/priority`, { priority });
       return response.data;
     } catch (error) {
       throw new Error('Thread önceliği güncellenemedi');
@@ -35,7 +35,7 @@ export const api = {
 
   getAllThreads: async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/threads`);
+      const response = await axios.get(`${BACKEND_URL}/threads`);
       return response.data;
     } catch (error) {
       throw new Error('Thread listesi alınamadı');
@@ -44,7 +44,7 @@ export const api = {
 
   getQueueStatus: async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/queue/status`);
+      const response = await axios.get(`${BACKEND_URL}/queue/status`);
       return response.data;
     } catch (error) {
       throw new Error('Kuyruk durumu alınamadı');

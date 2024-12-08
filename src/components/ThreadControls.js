@@ -1,33 +1,26 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { api } from '../services/api';
+import { useThreads } from '../hooks/useThreads';
 import './ThreadControls.css';
 
-function ThreadControls({ onThreadsStart }) {
+function ThreadControls() {
   const [senderCount, setSenderCount] = useState(5);
   const [receiverCount, setReceiverCount] = useState(5);
-  const [isLoading, setIsLoading] = useState(false);
+  const { startThreads, loading, error } = useThreads();
 
   const handleStartThreads = async () => {
-    setIsLoading(true);
-    try {
-      await api.startThreads(senderCount, receiverCount);
-      if (onThreadsStart) {
-        onThreadsStart();
-      }
-    } catch (error) {
-      console.error('Thread başlatma hatası:', error);
-    } finally {
-      setIsLoading(false);
-    }
+    await startThreads(senderCount, receiverCount);
   };
 
-  const handleInputChange = (setter) => (e) => {
+  const handleSenderChange = (e) => {
     const value = parseInt(e.target.value) || 0;
-    if (value >= 0 && value <= 20) {
-      setter(value);
-    }
+    setSenderCount(value);
+  };
+
+  const handleReceiverChange = (e) => {
+    const value = parseInt(e.target.value) || 0;
+    setReceiverCount(value);
   };
 
   return (
@@ -37,10 +30,9 @@ function ThreadControls({ onThreadsStart }) {
         <input
           className="number-input"
           type="number"
-          min="1"
-          max="20"
+          min="0"
           value={senderCount}
-          onChange={handleInputChange(setSenderCount)}
+          onChange={handleSenderChange}
         />
       </div>
 
@@ -49,21 +41,21 @@ function ThreadControls({ onThreadsStart }) {
         <input
           className="number-input"
           type="number"
-          min="1"
-          max="20"
+          min="0"
           value={receiverCount}
-          onChange={handleInputChange(setReceiverCount)}
+          onChange={handleReceiverChange}
         />
       </div>
 
       <button 
         className="start-button"
         onClick={handleStartThreads} 
-        disabled={isLoading || senderCount < 1 || receiverCount < 1}
+        disabled={loading || (senderCount < 1 && receiverCount < 1)}
       >
         <FontAwesomeIcon icon={faPlay} />
-        {isLoading ? 'Başlatılıyor...' : 'Thread\'leri Başlat'}
+        {loading ? 'Başlatılıyor...' : 'Thread\'leri Başlat'}
       </button>
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 }

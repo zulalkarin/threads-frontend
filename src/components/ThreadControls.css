@@ -34,12 +34,6 @@
   border-color: var(--secondary-color);
 }
 
-/* Chrome, Safari, Edge için ok butonlarının stilini özelleştirme */
-.number-input::-webkit-inner-spin-button,
-.number-input::-webkit-outer-spin-button {
-  opacity: 1;
-  height: 20px;
-}
 
 .start-button {
   background-color: var(--success-color);
@@ -63,7 +57,6 @@
   cursor: not-allowed;
 }
 
-/* Responsive tasarım için */
 @media (max-width: 600px) {
   .controls-container {
     flex-direction: column;

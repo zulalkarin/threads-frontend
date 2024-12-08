@@ -28,7 +28,6 @@
   color: var(--primary-color);
 }
 
-/* Özel scrollbar stili */
 .queue-display::-webkit-scrollbar {
   height: 8px;
 }

@@ -26,7 +26,6 @@
   font-size: 14px;
 }
 
-/* Responsive tasarım için */
 @media (max-width: 768px) {
   .queue-chart-container {
     padding: 10px;
