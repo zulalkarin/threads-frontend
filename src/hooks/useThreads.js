@@ -13,20 +13,21 @@ export const useThreads = () => {
       setThreads(data);
       setError(null);
     } catch (err) {
-      setError('Thread verisi alınırken hata oluştu');
+      setError('Error fetching thread data');
     } finally {
       setLoading(false);
     }
   };
 
-  const startThreads = async (senderCount, receiverCount) => {
+  const createThreads = async (senderCount, receiverCount) => {
+    console.log('createThreads', senderCount, receiverCount);
     setLoading(true);
     try {
-      await api.startThreads(senderCount, receiverCount);
-      await fetchThreads(); // Thread'ler başlatıldıktan sonra listeyi güncelle
+      await api.createThreads(senderCount, receiverCount);
+      await fetchThreads(); // update thread list after starting
       setError(null);
     } catch (err) {
-      setError('Thread başlatma işlemi başarısız oldu');
+      setError('Thread start process failed');
     } finally {
       setLoading(false);
     }
@@ -43,6 +44,6 @@ export const useThreads = () => {
     loading, 
     error, 
     refetchThreads: fetchThreads,
-    startThreads 
+    createThreads 
   };
 }; 

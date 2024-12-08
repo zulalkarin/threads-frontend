@@ -7,8 +7,8 @@ import './ThreadList.css';
 function ThreadList({ threads, onStatusChange, onPriorityChange }) {
   const handleStatusChange = async (threadId, currentStatus) => {
     try {
-      const newStatus = currentStatus === 'RUNNING' ? 'STOPPED' : 'RUNNING';
-      await api.updateThreadStatus(threadId, newStatus);
+      const newStatus = currentStatus === true ? false : true;
+      await api.updateThreadActive(threadId, newStatus);
       if (onStatusChange) {
         onStatusChange();
       }
@@ -44,11 +44,11 @@ function ThreadList({ threads, onStatusChange, onPriorityChange }) {
           </tr>
         </thead>
         <tbody>
-          {threads.map(thread => (
+          {threads?.map(thread => (
             <tr key={thread.id}>
               <td>{thread.id}</td>
               <td>{thread.type}</td>
-              <td>{thread.status}</td>
+              <td>{thread.a}</td>
               <td>
                 <button
                   className="priority-button"
@@ -68,11 +68,11 @@ function ThreadList({ threads, onStatusChange, onPriorityChange }) {
               </td>
               <td>
                 <button
-                  className={`action-button ${thread.status === 'RUNNING' ? 'running' : 'stopped'}`}
-                  onClick={() => handleStatusChange(thread.id, thread.status)}
+                  className={`action-button ${thread.active === true ? 'running' : 'stopped'}`}
+                  onClick={() => handleStatusChange(thread.id, thread.active)}
                 >
-                  <FontAwesomeIcon icon={thread.status === 'RUNNING' ? faStop : faPlay} />
-                  {thread.status === 'RUNNING' ? ' Durdur' : ' Başlat'}
+                  <FontAwesomeIcon icon={thread.active === true ? faStop : faPlay} />
+                  {thread.active === true ? ' Durdur' : ' Başlat'}
                 </button>
               </td>
             </tr>

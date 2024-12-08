@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { api } from '../services/api';
 
-export const useThreadControl = (onSuccess) => {
+export const useThreadControl = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const updateThreadStatus = async (threadId, status) => {
+  const updateThreadActive = async (threadId, active) => {
     setLoading(true);
     try {
-      await api.updateThreadStatus(threadId, status);
-      if (onSuccess) onSuccess();
+      await api.updateThreadActive(threadId, active);
       setError(null);
     } catch (err) {
       setError('Thread durumu güncellenirken hata oluştu');
@@ -22,7 +21,6 @@ export const useThreadControl = (onSuccess) => {
     setLoading(true);
     try {
       await api.updateThreadPriority(threadId, priority);
-      if (onSuccess) onSuccess();
       setError(null);
     } catch (err) {
       setError('Thread önceliği güncellenirken hata oluştu');
@@ -34,7 +32,7 @@ export const useThreadControl = (onSuccess) => {
   return {
     loading,
     error,
-    updateThreadStatus,
+    updateThreadActive,
     updateThreadPriority
   };
 }; 
