@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { api } from '../services/api';
+import { useState, useEffect } from "react";
+import { api } from "../services/api";
 
 export const useQueueStatus = () => {
   const [queueStatus, setQueueStatus] = useState(null);
@@ -13,7 +13,7 @@ export const useQueueStatus = () => {
       setQueueStatus(data);
       setError(null);
     } catch (err) {
-      setError('Queue durumu alınırken hata oluştu');
+      setError("Queue durumu alınırken hata oluştu");
     } finally {
       setLoading(false);
     }
@@ -26,4 +26,4 @@ export const useQueueStatus = () => {
   }, []);
 
   return { queueStatus, loading, error, refetchQueueStatus: fetchQueueStatus };
-}; 
+};

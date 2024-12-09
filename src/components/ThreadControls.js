@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { useThreads } from '../hooks/useThreads';
-import './ThreadControls.css';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { useThreads } from "../hooks/useThreads";
+import "./ThreadControls.css";
 
 function ThreadControls() {
   const [senderCount, setSenderCount] = useState(5);
@@ -51,19 +51,20 @@ function ThreadControls() {
         />
       </div>
 
-      <button 
+      <button
         className="start-button"
-        onClick={handleCreateThreads} 
+        onClick={handleCreateThreads}
         disabled={senderCount < 1 && receiverCount < 1}
       >
         <FontAwesomeIcon icon={faPlay} />
-       Create Threads
+        Create Threads
       </button>
-      
-      <button className="stop-button" onClick={handleDeleteThreads}>Delete All</button>
-      
+
+      <button className="stop-button" onClick={handleDeleteThreads}>
+        Delete All
+      </button>
     </div>
   );
 }
 
-export default ThreadControls; 
+export default ThreadControls;

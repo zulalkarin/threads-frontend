@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { api } from '../services/api';
+import { useState } from "react";
+import { api } from "../services/api";
 
 export const useThreadControl = () => {
   const [loading, setLoading] = useState(false);
@@ -11,7 +11,7 @@ export const useThreadControl = () => {
       await api.updateThreadActive(threadId, active);
       setError(null);
     } catch (err) {
-      setError('Thread durumu güncellenirken hata oluştu');
+      setError("Thread durumu güncellenirken hata oluştu");
     } finally {
       setLoading(false);
     }
@@ -23,7 +23,7 @@ export const useThreadControl = () => {
       await api.updateThreadPriority(threadId, priority);
       setError(null);
     } catch (err) {
-      setError('Thread önceliği güncellenirken hata oluştu');
+      setError("Thread önceliği güncellenirken hata oluştu");
     } finally {
       setLoading(false);
     }
@@ -33,6 +33,6 @@ export const useThreadControl = () => {
     loading,
     error,
     updateThreadActive,
-    updateThreadPriority
+    updateThreadPriority,
   };
-}; 
+};

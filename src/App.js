@@ -1,20 +1,18 @@
 import React from "react";
-import GlobalStyles from "./styles/GlobalStyles";
 import Dashboard from "./components/Dashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
+import logo from "./assets/logo.png";
 
 function App() {
   return (
     <div className="app-container">
-      <GlobalStyles />
-
       <nav className="navbar">
         <div className="nav-content">
-          <div className="logo">
-            <FontAwesomeIcon icon={faCode} />
-            Thread Yönetim Sistemi
+          <img className="logo-img" src={logo} alt="logo" />
+          <div className="navbar-text">
+            <h1>Thread Management System</h1>
           </div>
           <div></div>
         </div>
@@ -25,7 +23,7 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>Thread Yönetim Sistemi &copy; {new Date().getFullYear()}</p>
+        <p>Thread Management System &copy; {new Date().getFullYear()}</p>
       </footer>
     </div>
   );

@@ -1,49 +1,30 @@
-import React, { useState } from 'react';
-import ThreadControls from './ThreadControls';
-import ThreadList from './ThreadList';
-import QueueChart from './QueueChart';
-import QueueVisualizer from './QueueVisualizer';
-import { useThreads } from '../hooks/useThreads';
-import { useQueueStatus } from '../hooks/useQueueStatus';
-import './Dashboard.css';
+import React, { useState } from "react";
+import ThreadControls from "./ThreadControls";
+import ThreadList from "./ThreadList";
+import QueueChart from "./QueueChart";
+import QueueVisualizer from "./QueueVisualizer";
+import { useThreads } from "../hooks/useThreads";
+import { useQueueStatus } from "../hooks/useQueueStatus";
+import "./Dashboard.css";
 
 function Dashboard() {
-  const { 
+  let {
     threads,
-    loading: threadsLoading, 
+    loading: threadsLoading,
     error: threadsError,
-    refetchThreads 
+    refetchThreads,
   } = useThreads();
 
-//   console.log('threads', threads);
+  //   console.log('threads', threads);
 
+  const [activeSenderThreads, setActiveSenderThreads] = useState([]);
+  const [activeReceiverThreads, setActiveReceiverThreads] = useState([]);
 
-const [ activeSenderThreads, setActiveSenderThreads ] = useState([]);
-const [ activeReceiverThreads, setActiveReceiverThreads ] = useState([]);
-
-  const { 
-    queueStatus, 
-    loading: queueLoading, 
-    error: queueError 
+  const {
+    queueStatus,
+    loading: queueLoading,
+    error: queueError,
   } = useQueueStatus();
-
-//   //find the active threads
-//   setActiveSenderThreads(threads.filter(thread => thread.type === 'Sender' && thread.active === true));
-//   setActiveReceiverThreads(threads.filter(thread => thread.type === 'Receiver' && thread.active === true));
-
-
-//   console.log("");
-//   console.log("");
-//   console.log("");
-//   console.log("");
-  
-//   console.log('activeSenderThreads', activeSenderThreads);
-//   console.log('activeReceiverThreads', activeReceiverThreads);
-//   console.log("");
-  
-//   console.log("");
-//   console.log("");
-  
 
   const loading = threadsLoading || queueLoading;
   const error = threadsError || queueError;
@@ -51,26 +32,24 @@ const [ activeReceiverThreads, setActiveReceiverThreads ] = useState([]);
   return (
     <div className="dashboard-container">
       {error && <div className="error-message">{error}</div>}
-      
-      <ThreadControls onThreadsStart={refetchThreads} />
-      
 
-      { threads.length > 0 && (
+      <ThreadControls onThreadsStart={refetchThreads} />
+
+      {threads.length > 0 && (
         <div className="dashboard-grid">
-          <ThreadList 
-          threads={threads} 
-          onStatusChange={refetchThreads}
-          onPriorityChange={refetchThreads}
-          loading={loading}
-        />
-       
+          <ThreadList
+            threads={threads}
+            onStatusChange={refetchThreads}
+            onPriorityChange={refetchThreads}
+            loading={loading}
+          />
         </div>
       )}
-      <QueueChart queueStatus={queueStatus} threads={threads}/>
+      <QueueChart queueStatus={queueStatus} threads={threads} />
 
       {/* <QueueVisualizer queueStatus={queueStatus} threads={threads}/> */}
     </div>
   );
 }
 
-export default Dashboard; 
+export default Dashboard;

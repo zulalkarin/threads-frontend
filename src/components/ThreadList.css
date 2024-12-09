@@ -2,7 +2,8 @@
   background: white;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--primary-text-color);
 }
 
 .thread-table table {
@@ -41,12 +42,8 @@
   background-color: var(--success-color);
 }
 
-.action-button:hover {
-  opacity: 0.9;
-}
-
 .priority-button {
-  background-color: var(--secondary-color);
+  background-color: var(--light-grey);
   color: white;
   padding: 4px 8px;
   margin: 0 2px;
@@ -83,4 +80,45 @@
   .action-button {
     padding: 4px 8px;
   }
-} 
+}
+
+.thread-table tr[data-type="sender"] {
+  background-color: rgba(29, 103, 163, 0.143);
+}
+
+.thread-table tr[data-type="receiver"] {
+  background-color: rgba(255, 220, 200, 0.297);
+}
+
+.thread-summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1em;
+  margin-bottom: 1em;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 6px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.summary-label {
+  font-weight: 400;
+  font-size: var(--font-2);
+  color: var(--secondary-text-color);
+}
+
+.summary-count {
+  font-weight: 500;
+  font-size: var(--font-2);
+  color: var(--primary-text-color);
+  background: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}

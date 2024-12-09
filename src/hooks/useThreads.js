@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { api } from '../services/api';
+import { useState, useEffect } from "react";
+import { api } from "../services/api";
 
 export const useThreads = () => {
   const [threads, setThreads] = useState([]);
@@ -11,24 +11,24 @@ export const useThreads = () => {
     try {
       const data = await api.getAllThreads();
       setThreads(data);
-      console.log('fetchThreads data', data);
+      console.log("fetchThreads data", data);
       setError(null);
     } catch (err) {
-      setError('Error fetching thread data');
+      setError("Error fetching thread data");
     } finally {
       setLoading(false);
     }
   };
 
   const createThreads = async (senderCount, receiverCount) => {
-    console.log('createThreads', senderCount, receiverCount);
+    console.log("createThreads", senderCount, receiverCount);
     setLoading(true);
     try {
       await api.createThreads(senderCount, receiverCount);
       await fetchThreads(); // update thread list after starting
       setError(null);
     } catch (err) {
-      setError('Thread start process failed');
+      setError("Thread start process failed");
     } finally {
       setLoading(false);
     }
@@ -40,7 +40,7 @@ export const useThreads = () => {
       await api.deleteThreads();
       await fetchThreads();
     } catch (err) {
-      setError('Thread delete process failed');
+      setError("Thread delete process failed");
     } finally {
       setLoading(false);
     }
@@ -52,12 +52,12 @@ export const useThreads = () => {
     return () => clearInterval(interval);
   }, []);
 
-  return { 
-    threads, 
-    loading, 
-    error, 
+  return {
+    threads,
+    loading,
+    error,
     refetchThreads: fetchThreads,
     createThreads,
-    deleteThreads
+    deleteThreads,
   };
-}; 
+};

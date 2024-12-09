@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
+import React, { useState, useEffect } from "react";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,9 +8,9 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
-} from 'chart.js';
-import './QueueChart.css';
+  Legend,
+} from "chart.js";
+import "./QueueChart.css";
 
 ChartJS.register(
   CategoryScale,
@@ -24,38 +24,38 @@ ChartJS.register(
 
 function QueueChart({ queueStatus }) {
   const [chartData, setChartData] = useState([]);
-  
-  // Son 10 veriyi tutacak şekilde güncelle
+
+  // update chart data
   useEffect(() => {
-    setChartData(prevData => {
+    setChartData((prevData) => {
       const newData = [...prevData, queueStatus?.occupancyRate || 0];
-      return newData.slice(-10); // Son 10 veriyi tut
+      return newData.slice(-10); // last 10 data
     });
   }, [queueStatus]);
 
   const data = {
-    labels: chartData.map((_, index) => `${index + 1}s`), // Son 10 saniye
+    labels: chartData.map((_, index) => `${index + 1}s`), // last 10 seconds
     datasets: [
       {
-        label: 'Doluluk Oranı (%)',
+        label: "Occupancy Rate (%)",
         data: chartData,
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: "rgb(75, 192, 192)",
         tension: 0.4,
-        fill: false
-      }
-    ]
+        fill: false,
+      },
+    ],
   };
 
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        position: "top",
       },
       title: {
         display: true,
-        text: 'Queue Doluluk Oranı (Son 10 saniye)'
-      }
+        text: "Queue Occupancy Rate (Last 10 seconds)",
+      },
     },
     scales: {
       y: {
@@ -63,16 +63,16 @@ function QueueChart({ queueStatus }) {
         max: 100,
         title: {
           display: true,
-          text: 'Doluluk Oranı (%)'
-        }
+          text: "Occupancy Rate (%)",
+        },
       },
       x: {
         title: {
           display: true,
-          text: 'Zaman (saniye)'
-        }
-      }
-    }
+          text: "Time (seconds)",
+        },
+      },
+    },
   };
 
   return (
@@ -80,11 +80,11 @@ function QueueChart({ queueStatus }) {
       <Line data={data} options={options} />
       <div className="queue-stats">
         <div className="stat-item">
-          <span className="stat-label">Mevcut Boyut:</span>
+          <span className="stat-label">Current Size: </span>
           <span className="stat-value">{queueStatus?.currentSize || 0}</span>
         </div>
         <div className="stat-item">
-          <span className="stat-label">Maksimum Boyut:</span>
+          <span className="stat-label">Maximum Size: </span>
           <span className="stat-value">{queueStatus?.maxSize || 0}</span>
         </div>
       </div>
@@ -92,4 +92,4 @@ function QueueChart({ queueStatus }) {
   );
 }
 
-export default QueueChart; 
+export default QueueChart;

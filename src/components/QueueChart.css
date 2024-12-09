@@ -11,13 +11,11 @@
   width: 100% !important;
 }
 
-/* Grafik legend stilleri */
 .queue-chart-container .chartjs-legend {
   margin-top: 10px;
   padding: 10px;
 }
 
-/* Tooltip stilleri */
 .queue-chart-container .chartjs-tooltip {
   background: rgba(0, 0, 0, 0.8);
   color: white;
@@ -25,9 +23,16 @@
   border-radius: 4px;
   font-size: 14px;
 }
+.queue-stats {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  color: var(--primary-text-color);
+  font-size: var(--font-2);
+}
 
 @media (max-width: 768px) {
   .queue-chart-container {
     padding: 10px;
   }
-} 
+}
