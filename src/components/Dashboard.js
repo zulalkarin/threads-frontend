@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ThreadControls from "./ThreadControls";
 import ThreadList from "./ThreadList";
 import QueueChart from "./QueueChart";
-import QueueVisualizer from "./QueueVisualizer";
 import { useThreads } from "../hooks/useThreads";
 import { useQueueStatus } from "../hooks/useQueueStatus";
 import "./Dashboard.css";
@@ -47,7 +46,6 @@ function Dashboard() {
       )}
       <QueueChart queueStatus={queueStatus} threads={threads} />
 
-      {/* <QueueVisualizer queueStatus={queueStatus} threads={threads}/> */}
     </div>
   );
 }

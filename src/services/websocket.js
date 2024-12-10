@@ -1,10 +1,11 @@
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+import { WEBSOCKET_URL } from "../config";
 
 class WebSocketService {
     constructor() {
         this.client = new Client({
-            webSocketFactory: () => new SockJS('http://localhost:8080/ws'),
+            webSocketFactory: () => new SockJS(WEBSOCKET_URL),
             debug: function (str) {
                 console.log('STOMP: ' + str);
             },

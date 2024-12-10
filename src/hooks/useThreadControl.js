@@ -11,7 +11,7 @@ export const useThreadControl = () => {
       await api.updateThreadActive(threadId, active);
       setError(null);
     } catch (err) {
-      setError("Thread durumu güncellenirken hata oluştu");
+      setError("Error updating thread active");
     } finally {
       setLoading(false);
     }
@@ -23,7 +23,7 @@ export const useThreadControl = () => {
       await api.updateThreadPriority(threadId, priority);
       setError(null);
     } catch (err) {
-      setError("Thread önceliği güncellenirken hata oluştu");
+      setError("Error updating thread priority");
     } finally {
       setLoading(false);
     }
