@@ -50,7 +50,6 @@ export const api = {
   },
 
   getAllThreads: async () => {
-    console.log("api getAllThreads:********** ", `${BACKEND_URL}/threads`);
     try {
       const response = await axios.get(`${BACKEND_URL}/threads`);
       return response.data;
@@ -71,10 +70,18 @@ export const api = {
   getQueueStatus: async () => {
     try {
       const response = await axios.get(`${BACKEND_URL}/queue/status`);
-      console.log("api getQueueStatus response", response.data);
       return response.data;
     } catch (error) {
       throw new Error("Queue status fetch failed");
+    }
+  },
+
+  clearQueue: async () => {
+    try {
+      const response = await axios.delete(`${BACKEND_URL}/queue/clear`);
+      return response.data;
+    } catch (error) {
+      throw new Error("Queue clear failed");
     }
   },
 };

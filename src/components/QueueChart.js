@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -11,6 +14,7 @@ import {
   Legend,
 } from "chart.js";
 import "./QueueChart.css";
+import { useQueueStatus } from "../hooks/useQueueStatus";
 
 ChartJS.register(
   CategoryScale,
@@ -24,6 +28,7 @@ ChartJS.register(
 
 function QueueChart({ queueStatus }) {
   const [chartData, setChartData] = useState([]);
+  const { clearQueue } = useQueueStatus();
 
   // update chart data
   useEffect(() => {
@@ -77,6 +82,12 @@ function QueueChart({ queueStatus }) {
 
   return (
     <div className="queue-chart-container">
+      <div className="clear-queue-button">
+        <button onClick={clearQueue}>
+          <FontAwesomeIcon icon={faTrash} />
+          <div>Clear Queue</div>
+        </button>
+      </div>
       <Line data={data} options={options} />
       <div className="queue-stats">
         <div className="stat-item">

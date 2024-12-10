@@ -38,24 +38,17 @@
 .start-button {
   background-color: var(--success-color);
   color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
   display: flex;
   align-items: center;
   margin-left: auto;
-  border: none;
-  cursor: pointer;
   gap: 0.4em;
 }
 .stop-button {
   background-color: var(--disabled-grey);
   color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
   display: flex;
   align-items: center;
   border: none;
-  cursor: pointer;
 }
 
 .start-button:disabled {
@@ -70,6 +63,11 @@
   }
 
   .start-button {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+  .stop-button {
     width: 100%;
     justify-content: center;
     margin-left: 0;

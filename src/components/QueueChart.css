@@ -10,6 +10,21 @@
   max-height: 300px;
   width: 100% !important;
 }
+.clear-queue-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.clear-queue-button button {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  background: var(--disabled-grey);
+  color: white;
+
+ 
+}
 
 .queue-chart-container .chartjs-legend {
   margin-top: 10px;

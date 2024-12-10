@@ -13,7 +13,7 @@ export const useQueueStatus = () => {
       setQueueStatus(data);
       setError(null);
     } catch (err) {
-      setError("Queue durumu alınırken hata oluştu");
+      setError("Error fetching queue status");
     } finally {
       setLoading(false);
     }
@@ -25,5 +25,20 @@ export const useQueueStatus = () => {
     return () => clearInterval(interval);
   }, []);
 
-  return { queueStatus, loading, error, refetchQueueStatus: fetchQueueStatus };
+  const clearQueue = async () => {
+    try {
+      await api.clearQueue();
+      fetchQueueStatus();
+    } catch (err) {
+      setError("Error clearing queue");
+    }
+  };
+
+  return {
+    queueStatus,
+    loading,
+    error,
+    refetchQueueStatus: fetchQueueStatus,
+    clearQueue,
+  };
 };
